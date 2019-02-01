@@ -19,7 +19,7 @@ const Details = ({
     <CardContent>
       <h3>{item.title}</h3>
       <p>{item.description}</p>
-      <a href={item.url} target='_blank'>Go to Article</a>
+      <a href={item.url} target='_blank'>Go to Article Page</a>
     </CardContent>
   </CardItem>
   </Cards>
@@ -28,9 +28,9 @@ const Details = ({
 
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state.news);
+  console.log(state.articles);
   const id = parseInt(ownProps.match.params.id, 0);
-  let item = state.news.items.filter((m) => {
+  let item = state.articles.items.filter((m) => {
     return m.id === id;
   })[0];
   return {

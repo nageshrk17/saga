@@ -11,9 +11,7 @@ class ListArticlesContainer extends Component {
   }
 
   render() {
-    let {collection, favourite} = this.props;
-    console.log('read_cookie', favourite)
-
+    let { collection } = this.props;
     return (
       <List
         collection={collection}
@@ -24,7 +22,6 @@ class ListArticlesContainer extends Component {
 
 const mapStateToProps = (state) => ({
   collection: state.articles.items,
-  favourite: state.favourite,
 });
 
 const mapDispatchToProps = (dispatch) => ({

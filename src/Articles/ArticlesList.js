@@ -7,6 +7,8 @@ import {
   ContentDiv,
   ItemDiv,
   AnchorDiv,
+  Heading,
+  FavouriteLink,
 } from './styles';
 
 
@@ -15,6 +17,7 @@ class ArticlesList extends Component {
     super(props);
     this.navigateToDetailsPage = this.navigateToDetailsPage.bind(this);
     this.addToFavourite = this.addToFavourite.bind(this);
+    this.navigateToFavouriteArticlePage = this.navigateToFavouriteArticlePage.bind(this);
   }
 
   navigateToDetailsPage(articleId) {
@@ -27,13 +30,18 @@ class ArticlesList extends Component {
     requestfavouriteArticle(item);
   }
 
+  navigateToFavouriteArticlePage() {
+    const { history } = this.props;
+    history.push('favourite');
+  }
+
   render() {
     let { collection } = this.props;
     return (
-      <div>
-        <h3>List Of Article's</h3>
-        <p>View Favourite Article's</p>
-        <ContainerDiv>{collection.map((item) => {
+      <ContainerDiv>
+        <Heading>List Of Article's</Heading>
+        <FavouriteLink onClick={this.navigateToFavouriteArticlePage}>View Favourite Article's</FavouriteLink>
+        {collection.map((item) => {
           return (
             <ContentDiv key={item.id}>
               <ItemDiv>
@@ -48,8 +56,7 @@ class ArticlesList extends Component {
             </ContentDiv>
           );
         })}
-        </ContainerDiv>
-    </div>
+      </ContainerDiv>
     );
   }
 }

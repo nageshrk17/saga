@@ -6,6 +6,18 @@ export const ContainerDiv = styled.div`
   flex-direction: column;
 `;
 
+export const Heading = styled.h2`
+  text-align: center;
+`;
+
+export const FavouriteLink = styled.p`
+  text-align: right;
+  padding-right: 20px;
+  cursor: pointer;
+  text-decoration: underline;
+  color: blue;
+`;
+
 export const ContentDiv = styled.div`
   background-color: #f1f1f1;
   margin: 10px;
@@ -36,7 +48,7 @@ export const Cards = styled.div`
 `;
 
 export const CardItem = styled.div`
-  flex: 0 0 400px;
+  flex: 0 0 500px;
   margin: 10px;
   border: 1px solid #ccc;
   box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
@@ -48,12 +60,17 @@ export const CardImg = styled.img`
 
 export const CardContent = styled.div`
   padding: 0 20px 20px;
+  & h3 {
+    text-align: center;
+  }
   & a{
-    background: gray;
+    background: green;
     border: 0;
     color: white;
     padding: 10px;
-    width: 100%;
+    text-align: center;
+    display: block;
+    text-decoration: none;
   }
 `;
 
