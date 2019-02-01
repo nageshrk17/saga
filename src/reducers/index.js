@@ -1,6 +1,9 @@
 import {combineReducers} from 'redux';
-import news from './news';
+import articles from './article';
+import favourite from './favourite';
+
 
 export default combineReducers({
-  news,
+  articles,
+  favourite,
 })

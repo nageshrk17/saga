@@ -1,8 +1,8 @@
 import {
-  FETCH_NEWS_REQUEST,
-  FETCH_NEWS_SUCCESS,
-  FETCH_NEWS_FAILURE,
-} from '../actionTypes'
+  FETCH_ARTICLE_REQUEST,
+  FETCH_ARTICLE_SUCCESS,
+  FETCH_ARTICLE_FAILURE,
+} from '../constants/ActionTypes'
 
 
 const INITIAL_STATE = {
@@ -13,18 +13,22 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case FETCH_NEWS_REQUEST:
+    case FETCH_ARTICLE_REQUEST:
       return {
         ...state,
         isLoading: true,
       };
-    case FETCH_NEWS_SUCCESS:
+    case FETCH_ARTICLE_SUCCESS:
+    const items = action.articles && action.articles.map((item, index) => {
+      item.id = index+1;
+      return item;
+    });
       return {
         ...state,
         isLoading: false,
-        items: action.articles,
+        items,
       };
-    case FETCH_NEWS_FAILURE: 
+    case FETCH_ARTICLE_FAILURE: 
       return {
         ...state,
         isLoading: false,
