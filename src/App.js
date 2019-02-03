@@ -1,15 +1,31 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import ReduxThunk from 'redux-thunk';
 import { BrowserRouter } from 'react-router-dom';
+import createSagaMiddleware from 'redux-saga';
+import ReduxThunk from 'redux-thunk';
 import reducers from './reducers';
 import Main from './Main';
+import rootSaga from './saga';
 import './App.css';
 
+
+
+
+const sagaMiddleware = createSagaMiddleware();
+
+const middlewares = [
+  ReduxThunk,
+  sagaMiddleware,
+];
+
+
 const store = createStore(
-  reducers, {}, applyMiddleware(ReduxThunk)
+  reducers, {}, applyMiddleware(...middlewares)
 );
+
+
+sagaMiddleware.run(rootSaga);
 
 class App extends Component {
   render() {

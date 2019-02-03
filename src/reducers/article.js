@@ -3,7 +3,18 @@ import {
   FETCH_ARTICLE_SUCCESS,
   FETCH_ARTICLE_FAILURE,
 } from '../constants/ActionTypes'
+import { read_cookie } from 'sfcookies';
 
+const checkforFavourite = (items, favArt) => {
+  items.map((item1) => {
+    favArt.map((item2) => {
+      if(item1.id === item2.id) {
+        item1.favourite = true;
+       }
+    });
+  });
+  return items;
+}
 
 const INITIAL_STATE = {
   items: [],
@@ -19,10 +30,13 @@ export default (state = INITIAL_STATE, action) => {
         isLoading: true,
       };
     case FETCH_ARTICLE_SUCCESS:
-    const items = action.articles && action.articles.map((item, index) => {
+    const favouriteArticles = read_cookie('article');
+    let items = action.articles && action.articles.map((item, index) => {
       item.id = index+1;
+      item.favourite = false;
       return item;
     });
+    items = favouriteArticles.length ? checkforFavourite(items, favouriteArticles) : items;
       return {
         ...state,
         isLoading: false,

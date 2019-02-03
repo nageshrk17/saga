@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router';
+import { fetchArticles } from '../actions/article';
 import {
   Cards,
   CardItem,
@@ -9,26 +10,36 @@ import {
 } from './styles';
 
 
-const Details = ({
-  item,
-}) => {
-  return (
-  <Cards>
-  <CardItem>
-    <CardImg src={item.urlToImage} alt="Sample photo" />
-    <CardContent>
-      <h3>{item.title}</h3>
-      <p>{item.description}</p>
-      <a href={item.url} target='_blank'>Go to Article Page</a>
-    </CardContent>
-  </CardItem>
-  </Cards>
-  );
-};
+class Details extends Component {
+  componentDidMount() {
+    let { requestArticles } = this.props;
+    requestArticles();
+  }
+
+
+render() {
+    let { item } = this.props;
+      return (
+        <Cards>
+          <CardItem>
+          {item &&
+            <div>
+              <CardImg src={item.urlToImage} alt="Sample photo" />
+              <CardContent>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+                <a href={item.url} target='_blank'>Go to Article Page</a>
+              </CardContent>
+            </div>
+          }
+          </CardItem>
+         </Cards>
+      );
+    }
+}
 
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state.articles);
   const id = parseInt(ownProps.match.params.id, 0);
   let item = state.articles.items.filter((m) => {
     return m.id === id;
@@ -38,10 +49,14 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
+const mapDispatchToProps = (dispatch) => ({
+  requestArticles() {
+    dispatch(fetchArticles());
+  },
+});
+
 
 export default withRouter(connect(
   mapStateToProps,
-  null,
+  mapDispatchToProps,
 )(Details));
-
-

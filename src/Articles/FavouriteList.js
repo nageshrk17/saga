@@ -27,7 +27,7 @@ class FavouriteList extends Component {
       <ContainerDiv>
         <Heading>List Of favourite Article's</Heading>
         <FavouriteLink onClick={this.navigateToHomePage}>Go Back</FavouriteLink>
-        {favourite.map((item) => {
+        {favourite && favourite.map((item) => {
           return (
             <ContentDiv key={item.id}>
               <ItemDiv>

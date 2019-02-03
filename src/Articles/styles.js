@@ -40,6 +40,13 @@ export const AnchorDiv = styled.div`
   padding-bottom: 10px;
 `;
 
+export const AddedDiv = styled.div`
+  color: red;
+  font-size: 14px;
+  padding-bottom: 10px;
+`;
+
+
 export const Cards = styled.div`
   display: flex;
   flex-wrap: wrap;
