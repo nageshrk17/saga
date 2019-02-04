@@ -11,11 +11,21 @@ import {
 
 
 class Details extends Component {
+  constructor(props) {
+    super(props);
+    this.navigateToHomePage = this.navigateToHomePage.bind(this);
+  }
+  
+
   componentDidMount() {
     let { requestArticles } = this.props;
     requestArticles();
   }
 
+  navigateToHomePage() {
+    const { history } = this.props;
+    history.goBack();
+  }
 
 render() {
     let { item } = this.props;
@@ -29,6 +39,7 @@ render() {
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
                 <a href={item.url} target='_blank'>Go to Article Page</a>
+                <button onClick={this.navigateToHomePage}>Back</button>
               </CardContent>
             </div>
           }

@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router';
+import { graphql, compose } from 'react-apollo';
 import { favouriteArticle } from '../actions/article';
 import Snackbar from '@material-ui/core/Snackbar';
-import { Table } from 'antd';
+import { listArtickesQuery } from '../queries/queries';
+
 
 import {
   ContainerDiv,
@@ -15,22 +17,7 @@ import {
   AddedDiv,
 } from './styles';
 
-const columns = [{
-  title: 'Id',
-  dataIndex: 'id',
-  key: 'id',
-}, {
-  title: 'Title',
-  dataIndex: 'title',
-  key: 'title',
-}, {
-  title: 'Author',
-  dataIndex: 'author',
-  key: 'author',
-}];
-
-
-class ArticlesList extends Component {
+class QueryList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -47,13 +34,12 @@ class ArticlesList extends Component {
   }
 
   addToFavourite(item, vertical, horizontal) {
-    let { requestfavouriteArticle, history } = this.props;
+    let { requestfavouriteArticle } = this.props;
     requestfavouriteArticle(item);
     this.setState({ open: true, vertical, horizontal });
     setTimeout(
       function() {
           this.setState({open: false});
-          history.push('favourite');
       }
       .bind(this),
       3000
@@ -68,6 +54,8 @@ class ArticlesList extends Component {
   render() {
     let { collection } = this.props;
     const { open, vertical, horizontal  } = this.state;
+    const { listArtickesQuery } = this.props;
+    console.log(listArtickesQuery);
     return (
       <ContainerDiv>
         <Heading>List Of Article's</Heading>
@@ -92,7 +80,6 @@ class ArticlesList extends Component {
             </ContentDiv>
           );
         })}
-        <Table dataSource={collection} columns={columns}  pagination={{ pageSize: 5 }}/>
         <Snackbar
           anchorOrigin={{ vertical, horizontal }}
           open={open}
@@ -114,7 +101,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 
-export default withRouter(connect(
-  null,
-  mapDispatchToProps,
-)((ArticlesList)));
+export default withRouter(compose(
+  graphql(listArtickesQuery, { name: 'listArtickesQuery' }),
+)(
+  connect(null, mapDispatchToProps)(QueryList),
+));

@@ -77,7 +77,20 @@ export const CardContent = styled.div`
     padding: 10px;
     text-align: center;
     display: block;
+    margin-bottom: 10px;
     text-decoration: none;
+  }
+  & button {
+    background: green;
+    border: 0;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    display: block;
+    font-size: 16px;
+    width: 100%;
+    outline: 0;
+    cursor: pointer;
   }
 `;
 
